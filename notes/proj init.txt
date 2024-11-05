@@ -1,0 +1,49 @@
+
+
+choices made during project initialization, in the shell
+
+
+
+npx sv create cuez-coding-challenge
+┌  Welcome to the Svelte CLI! (v0.5.11)
+│
+◇  Which template would you like?
+│  SvelteKit minimal
+│
+◇  Add type checking with Typescript?
+│  Yes, using Typescript syntax
+│
+◆  Project created
+│
+◇  What would you like to add to your project? (use arrow keys / space bar)
+│  tailwindcss
+│
+◇  Which plugins would you like to add?
+│  none
+│
+◇  Which package manager do you want to install dependencies with?
+│  npm
+│
+◆  Successfully setup integrations
+│
+◇  Successfully installed dependencies
+│
+◇  Project next steps ─────────────────────────────────────────────────────╮
+│                                                                          │
+│  1: cd cuez-coding-challenge                                             │
+│  2: git init && git add -A && git commit -m "Initial commit" (optional)  │
+│  3: npm run dev -- --open                                                │
+│                                                                          │
+│  To close the dev server, hit Ctrl-C                                     │
+│                                                                          │
+│  Stuck? Visit us at https://svelte.dev/chat                              │
+│                                                                          │
+├──────────────────────────────────────────────────────────────────────────╯
+│
+└  You're all set!
+
+
+
+
+
+
