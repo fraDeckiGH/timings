@@ -2,7 +2,6 @@
 <script lang="ts">
   import img_dude from '$lib/assets/dude.png';
   import type { EpisodeT, Item, Timings, TimingT_incomplete } from '$lib/database/types';
-  import Cell from '$lib/episode/cell.svelte';
   import Timing from '$lib/timing/timing.svelte';
   import { millisecondsToSeconds, transformTimestamp } from '$lib/util/logic';
   import Icon from '@iconify/svelte';
@@ -131,13 +130,11 @@
 
 {#if timings}
 
-  <header 
-    class="
+  <header class="
       py-3 pl-3
       text-[#898989] text-[90%]
       flex
-    "
-  >
+    ">
     <button>
       <Icon
         icon="material-symbols:arrow-left-alt"
@@ -146,7 +143,7 @@
     </button>
     
     <div class="
-      border-solid border-x border-[#dee1e0]
+      border-x border-[#dee1e0]
       flex-auto flex
       "
     >
@@ -221,172 +218,121 @@
     </div>
   </header>
   
-  <!-- I was undecided between using grid, flex or table, 
-    after not much time I realized that I should have used flex. 
-  -->
-  <table class="
-      w-full 
-      border-collapse border-spacing-0 
-    "
-  >
-    <thead class="">
-      <tr>
-        <th 
-          class="
-            w-20
-            text-[80%] text-left font-medium text-[#343638]
-            p-0
-          "
-          scope="col" 
-        >
-          <div class="
-              border-solid border border-[#dee1e0] border-l-0 border-r-0
-              py-[.2rem] px-[.4rem]
-            "
-          >
-            &nbsp;
-          </div>
-        </th>
-        <th 
-          colspan="2"
-          class="
-            text-[80%] text-left font-medium text-[#343638]
-            p-0
-          "
-          scope="col" 
-        >
-          <div class="
-              border-solid border border-[#dee1e0] border-l-0
-              py-[.2rem] px-[.4rem] pl-0
-              flex items-center gap-2
-            "
-          >
-            <button class="
-                border-solid border border-[#343638] rounded-[50%]
-              "
-            >
-              <Icon 
-                icon="material-symbols:arrow-right"
-                class="text-[#7a85a7] text-[125%]"
-              />
-            </button>
-            <span>
-              Rundown
-            </span>
-          </div>
-        </th>
-        <th 
-          class="
-            w-24
-            text-[80%] text-left font-medium text-[#343638]
-            p-0
-          "
-          scope="col" 
-        >
-          <div class="
-              border-solid border border-[#dee1e0] border-l-0
-              py-[.2rem] px-[.4rem]
-            "
-          >
-            Est. duration
-          </div>
-        </th>
-        <th 
-          class="
-            w-28
-            text-[80%] text-left font-medium text-[#343638]
-            p-0
-          "
-          scope="col" 
-        >
-          <div class="
-              border-solid border border-[#dee1e0] border-l-0
-              py-[.2rem] px-[.4rem]
-            "
-          >
-            Front time
-          </div>
-        </th>
-        <th 
-          class="
-            w-28
-            text-[80%] text-left font-medium text-[#343638]
-            p-0
-          "
-          scope="col" 
-        >
-          <div class="
-              border-solid border border-[#dee1e0] border-l-0
-              py-[.2rem] px-[.4rem]
-            "
-          >
-            End time
-          </div>
-        </th>
-        <th 
-          class="
-            w-28
-            text-[80%] text-left font-medium text-[#343638]
-            p-0
-          "
-          scope="col" 
-        >
-          <div class="
-              border-solid border border-[#dee1e0] border-l-0
-              py-[.2rem] px-[.4rem]
-            "
-          >
-            Back time
-          </div>
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-    
-      {#each Object.values(data.episode.part) as part}
-        <Timing 
-          {...part}
-          items={
-            getTiming_items({
-              item_ids: part.items,
-              timingsArg: timings,
-            })
-          }
-          timing={timings.part[part.id]}
+  <div class="flex justify-end">
+    <div class="
+      border-[#dee1e0] border-y
+      basis-20
+    "></div>
+    <div class="
+        border-[#dee1e0] border border-l-0
+        py-[.2rem] px-[.4rem] pl-0
+        text-[80%] text-left font-[500] text-[#343638]
+        flex-auto
+        flex items-center gap-2
+      ">
+      <button 
+        class="
+          border-[#343638] border rounded-[50%]
+        "
+      >
+        <Icon 
+          icon="material-symbols:arrow-right"
+          class="text-[#7a85a7] text-[125%]"
         />
-      {/each}
-      
-    </tbody>
-    <tfoot class="border-solid border-t-[.8rem] border-transparent">
-      
-      <tr>
-        <td colspan="5"></td>
-        <Cell>
-          <div class="
-              py-[.2rem] px-[.4rem]
-              text-right
-            "
-          >
-            <Icon 
-              icon="material-symbols:flag-rounded"
-              class="ml-auto text-[#fa2705]"
-            />
-          </div>
-        </Cell>
-        <Cell>
-          <div class="
-              border-solid border border-[#dee1e0] rounded
-              py-[.2rem] px-[.4rem]
-              text-right
-            "
-          >
-            {transformTimestamp(timings.episode.off_air_time)}
-          </div>
-        </Cell>
-      </tr>
-      
-    </tfoot>
-  </table>
+      </button>
+      <span>
+        Rundown
+      </span>
+    </div>
+    
+    <div class="
+        border-[#dee1e0] border border-l-0
+        py-[.2rem] px-[.4rem]
+        basis-24
+        text-[80%] text-left font-[500] text-[#343638]
+        flex items-center
+      ">
+      Est. duration
+    </div>
+    <div class="
+        border-[#dee1e0] border border-l-0
+        py-[.2rem] px-[.4rem]
+        basis-28
+        text-[80%] text-left font-[500] text-[#343638]
+        flex items-center
+      ">
+      Front time
+    </div>
+    <div class="
+        border-[#dee1e0] border border-l-0
+        py-[.2rem] px-[.4rem]
+        basis-28
+        text-[80%] text-left font-[500] text-[#343638]
+        flex items-center
+      ">
+      End time
+    </div>
+    <div class="
+        border-[#dee1e0] border border-l-0
+        py-[.2rem] px-[.4rem]
+        basis-28
+        text-[80%] text-left font-[500] text-[#343638]
+        flex items-center
+      ">
+      Back time
+    </div>
+    <div class="
+        border-[#dee1e0] border-y
+        py-[.2rem]
+        basis-7
+        text-[80%] text-left font-[500] text-[#343638]
+        flex items-center
+      ">
+      <button>
+        <Icon 
+          icon="material-symbols:add"
+          class="text-[#898989] text-[175%]"
+        />
+      </button>
+    </div>
+  </div>
+  
+  {#each Object.values(data.episode.part) as part}
+    <Timing 
+      {...part}
+      items={
+        getTiming_items({
+          item_ids: part.items,
+          timingsArg: timings,
+        })
+      }
+      timing={timings.part[part.id]}
+    />
+  {/each}
+  
+  <footer class="mt-3 flex justify-end">
+    <div class="
+        py-[.2rem] px-[.4rem]
+        basis-28 
+        flex items-center justify-end
+      "
+    >
+      <Icon 
+        icon="material-symbols:flag-rounded"
+        class="text-[#fa2705]"
+      />
+    </div>
+    <div class="
+        border-[#dee1e0] border rounded
+        py-[.2rem] px-[.4rem]
+        basis-28 text-right
+      "
+    >
+      {transformTimestamp(timings.episode.off_air_time)}
+    </div>
+    
+    <div class="basis-7"></div>
+  </footer>
   
 {:else}
   <!-- untested -->

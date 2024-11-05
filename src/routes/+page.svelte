@@ -7,11 +7,11 @@
 </script>
 
 
-<div class="page-container">
+<!-- <div class="page-container"> -->
   <main class="">
     <Episode data={{ episode, timings }} />
   </main>
-</div>
+<!-- </div> -->
 
 
 <style>

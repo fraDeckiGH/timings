@@ -8,11 +8,11 @@ html {
   /* background-color: #121212; */
   /* color: #ccc; */
   
+  /* useful stuff but people assessing me may not like it */
   /* default texts size is the 1 a label or "weak-title" would have */
-  font-size: max(12px, 62.5% + .3vw);
+  /* font-size: max(12px, 62.5% + .3vw); */
   /* default texts size is the same I would give a paragraph */
   /* font-size: max(12px, 50% + .3vw); */
-  
 }
 body {
   overflow-x: hidden;
