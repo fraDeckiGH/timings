@@ -1,7 +1,7 @@
 
 <script lang="ts">
-  import img_dude from '$lib/assets/dude.png';
   import type { EpisodeT, Item, Timings, TimingT_incomplete } from '$lib/database/types';
+  import Toolbar from '$lib/episode/toolbar.svelte';
   import Timing from '$lib/timing/timing.svelte';
   import { millisecondsToSeconds, transformTimestamp } from '$lib/util/logic';
   import Icon from '@iconify/svelte';
@@ -16,8 +16,8 @@
   
   
   function calculateTimings(episodeData: Data["episode"], timingsData: Data["timings"]) {
-    /* TODO: to remove coercion, 
-      construct timingsEdited little by little */
+    /* TODO: remove coercion, 
+      try constructing timingsEdited little by little */
     const timingsEdited = structuredClone(timingsData) as unknown as Timings; // coercion
     let ret: Timings | null = null; 
     
@@ -130,93 +130,7 @@
 
 {#if timings}
 
-  <header class="
-      py-3 pl-3
-      text-[#898989] text-[90%]
-      flex
-    ">
-    <button>
-      <Icon
-        icon="material-symbols:arrow-left-alt"
-        class="text-[175%]"
-      />
-    </button>
-    
-    <div class="
-      border-x border-[#dee1e0]
-      flex-auto flex
-      "
-    >
-      <!-- fake select/dropdown menu -->
-      <div
-        class="
-          ml-4
-          flex items-center gap-1
-        "
-      >
-        <span class="font-[500]">
-          Live
-        </span>
-        <button>
-          <Icon
-            icon="material-symbols:keyboard-arrow-down"
-            class="text-[125%]"
-          />
-        </button>
-      </div>
-      
-      <div
-        class="
-          ml-5
-          flex items-center gap-1
-        "
-      >
-        <Icon
-          icon="material-symbols:flag-rounded"
-          class="text-[#50ac4f]"
-        />
-        {transformTimestamp(timings.episode.on_air_time)}
-      </div>
-      
-      <div
-        class="
-          ml-5
-          flex items-center gap-1
-        "
-      >
-        <Icon
-          icon="material-symbols:flag-rounded"
-          class="text-[#fa2705]"
-        />
-        {transformTimestamp(timings.episode.on_air_time)}
-      </div>
-      
-      <div
-        class="
-          ml-5
-          flex items-center gap-1
-        "
-      >
-        <Icon
-          icon="material-symbols:timer-outline"
-          class=""
-        />
-        {transformTimestamp(timings.episode.on_air_time)}
-      </div>
-      
-    </div>
-    <div class="flex items-center gap-1  pl-5">
-      
-      <img class="h-8" src={img_dude} alt="dude.png">
-      <button>
-        <Icon
-          icon="material-symbols:keyboard-arrow-down"
-          class="text-[175%]"
-        />
-      </button>
-      
-    </div>
-  </header>
+  <Toolbar {...timings.episode} />
   
   <div class="flex justify-end">
     <div class="
@@ -230,11 +144,7 @@
         flex-auto
         flex items-center gap-2
       ">
-      <button 
-        class="
-          border-[#343638] border rounded-[50%]
-        "
-      >
+      <button class="border-[#343638] border rounded-[50%]">
         <Icon 
           icon="material-symbols:arrow-right"
           class="text-[#7a85a7] text-[125%]"
@@ -335,11 +245,10 @@
   </footer>
   
 {:else}
-  <!-- untested -->
+  <!-- untested: not part of the challenge -->
 	<p class="">
     Episode with id: {data.episode.episode.id} ; has no parts in it
   </p>
 {/if}
 
 
-<style></style>
