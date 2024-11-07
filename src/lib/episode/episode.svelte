@@ -109,6 +109,7 @@
     timingsArg, 
   }: {
     item_ids: Array<Item["id"]>
+    /** timings argument/parameter */
     timingsArg: NonNullable<typeof timings>
     // timingsArg: Timings // more readable, less dynamic
   }) {
