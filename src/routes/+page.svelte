@@ -14,6 +14,7 @@
 <!-- </div> -->
 
 
+<!-- svelte-ignore css-unused-selector -->
 <style>
   /* I'ld avoid doing this kind of setup in Tailwind */
   .page-container {

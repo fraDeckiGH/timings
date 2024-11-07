@@ -14,7 +14,7 @@ export type {
   with the component */
 interface EpisodeT {
   episode: EpisodeT_common & {
-    status: "active" | string
+    status: /* "active" |  */string
     parts: Array<Part["id"]>
   }
   part: Record<Part["id"], Part>

@@ -13,6 +13,7 @@
   let { data }: { data: Data } = $props();
   
   let timings = $derived(calculateTimings(data.episode, data.timings));
+  let timings_msg = $state("");
   
   
   function calculateTimings(episodeData: Data["episode"], timingsData: Data["timings"]) {
@@ -102,6 +103,94 @@
     return ret;
   }
   
+  function calculateTimings2(episodeData: Data["episode"], timingsData: Data["timings"]) {
+    /* TODO: remove coercion, 
+      try constructing timingsEdited little by little */
+    const timingsEdited = structuredClone(timingsData) as unknown as Timings; // coercion
+    let ret: Timings | null = null; 
+    
+    const part_ids = episodeData.episode.parts;
+    if (part_ids.length === 0) {
+      timings_msg = `Episode with id "${episodeData.episode.id}" has no parts in it`;
+      console.log(`${timings_msg}`, );
+      return ret; 
+    }
+    
+    // part 1
+    const part1 = timingsEdited.part[part_ids[0]]; 
+    
+    part1.front_time = timingsEdited.episode.on_air_time;
+    part1.back_time = part1.front_time;
+    
+    // * parts iteration
+    part_ids.forEach((part_id, part_ids_index) => {
+      const item_ids = episodeData.part[part_id].items ?? [];
+      const part = timingsEdited.part[part_id];
+      part.estimated_duration = millisecondsToSeconds(part.estimated_duration);
+      
+      if (part_ids_index > 0) {
+        const prevPart = timingsEdited.part[part_ids[part_ids_index - 1]];
+        
+        // part[n].back_time
+        if (prevPart.back_time == null) {
+          throw new Error("prevPart.back_time is nullish");
+        }
+        part.back_time = prevPart.back_time + prevPart.estimated_duration;
+        
+        // part[n].front_time
+        if (prevPart.front_time == null) {
+          throw new Error("prevPart.front_time is nullish");
+        }
+        part.front_time = prevPart.front_time + prevPart.estimated_duration;
+        // part.front_time = prevPart.end_time; // simpler alternative
+      }
+      
+      // part[n].end_time
+      if (part.front_time == null) {
+        throw new Error("part.front_time is nullish");
+      }
+      part.end_time = part.front_time + part.estimated_duration;
+      
+      // item 1
+      const item1 = timingsEdited.item[item_ids[0]]; 
+      item1.front_time = part.front_time;
+      item1.back_time = item1.front_time;
+      
+      // * items iteration
+      item_ids.forEach((item_id, item_ids_index) => {
+        const item = timingsEdited.item[item_id];
+        item.estimated_duration = millisecondsToSeconds(item.estimated_duration); 
+        
+        if (item_ids_index > 0) {
+          const prevItem = timingsEdited.item[item_ids[item_ids_index - 1]];
+          
+          // item[n].back_time
+          if (prevItem.back_time == null) {
+            throw new Error("prevItem.back_time is nullish");
+          }
+          item.back_time = prevItem.back_time + prevItem.estimated_duration;
+          
+          // item[n].front_time
+          if (prevItem.front_time == null) {
+            throw new Error("prevItem.front_time is nullish");
+          }
+          item.front_time = prevItem.front_time + prevItem.estimated_duration; 
+          // item.front_time = prevItem.end_time; // simpler alternative
+        }
+        
+        // item[n].end_time
+        if (item.front_time == null) {
+          throw new Error("item.front_time is nullish");
+        }
+        item.end_time = item.front_time + item.estimated_duration;
+      });
+    });
+    
+    ret = timingsEdited/*  as Timings */; // coercion
+    // const x: Timings = <Timings<TimingT_incomplete>>timingsEdited;
+    return ret;
+  }
+  
   function getTiming_items({ 
     item_ids, 
     timingsArg, 
@@ -128,9 +217,11 @@
 </script>
 
 
-{#if timings}
+<!-- right now it's not strictly necessary for this to be under #if, 
+  so I moved it outside of it -->
+<Toolbar {...data.timings.episode} />
 
-  <Toolbar {...timings.episode} />
+{#if timings}
   
   <div class="flex justify-end">
     <div class="
@@ -220,35 +311,46 @@
     />
   {/each}
   
-  <footer class="mt-3 flex justify-end">
-    <div class="
-        py-[.2rem] px-[.4rem]
-        basis-28 
-        flex items-center justify-end
-      "
-    >
-      <Icon 
-        icon="material-symbols:flag-rounded"
-        class="text-[#fa2705]"
-      />
-    </div>
-    <div class="
-        border-[#dee1e0] border rounded
-        py-[.2rem] px-[.4rem]
-        basis-28 text-right
-      "
-    >
-      {transformTimestamp(timings.episode.off_air_time)}
-    </div>
-    
-    <div class="basis-7"></div>
-  </footer>
-  
 {:else}
-  <!-- untested: not part of the challenge -->
-	<p class="">
-    Episode with id: {data.episode.episode.id} ; has no parts in it
-  </p>
+	
+  <div class="px-4 flex justify-center">
+    {#if timings_msg}
+      <p class="text-orange-400">
+        {timings_msg}
+      </p>
+    {:else}
+      <p class="">
+        Data is loading...
+      </p>
+    {/if}
+  </div>
+  
 {/if}
+
+<!-- right now it's not strictly necessary for this to be under #if, 
+  so I moved it outside of it -->
+<footer class="mt-3 flex justify-end">
+  <div class="
+      py-[.2rem] px-[.4rem]
+      basis-28 
+      flex items-center justify-end
+    "
+  >
+    <Icon 
+      icon="material-symbols:flag-rounded"
+      class="text-[#fa2705]"
+    />
+  </div>
+  <div class="
+      border-[#dee1e0] border rounded
+      py-[.2rem] px-[.4rem]
+      basis-28 text-right
+    "
+  >
+    {transformTimestamp(data.timings.episode.off_air_time)}
+  </div>
+  
+  <div class="basis-7"></div>
+</footer>
 
 

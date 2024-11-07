@@ -141,7 +141,8 @@
       {/each}
       
     {:else}
-      <p class="self-center text-orange-400">
+      <!-- text-orange-400 -->
+      <p class="self-center ">
         No additional nested content to show for this {getFirstWord(title)}
       </p>
     {/if}
