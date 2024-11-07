@@ -146,6 +146,7 @@
         No additional nested content to show for this {getFirstWord(title)}
       </p>
     {/if}
+    
   </div>
 {/if}
 
