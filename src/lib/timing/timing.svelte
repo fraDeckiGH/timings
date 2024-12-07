@@ -31,96 +31,96 @@
     {type === "part" ? "bg-[#eaebf1]" : null}
     flex justify-end
   ">
-    <div class="
-        {type === "part" ? "border-[#dee1e0] border-y" : null}
-        py-[.2rem] px-[.4rem]
-        basis-20
-        text-center text-[#909094] text-[85%]
-      ">
-      {index}
-    </div>
-    <div class="
-        border-[#dee1e0] {type === "item" ? "border border-r-0 rounded-l" : "border-y"}
-        py-[.2rem] px-[.4rem] pl-0
-        basis-40
-        flex items-center
-      ">
-      
-      <button onclick={() => collapsed = !collapsed}>
-        <Icon 
-          icon={collapsed ? "material-symbols:arrow-right" : "material-symbols:arrow-drop-down"}
-          class="text-[#7a85a7] text-[125%]"
-        />
-      </button>
-      
-      {#if type === "item"}
-        <span class="
-            bg-[#7a85a7] text-white 
-            ml-2 px-[.3rem] py-[.05rem] rounded
-            font-[500] uppercase text-[85%]
-          ">
-          {getFirstWord(title)} {index}
-        </span>
-      {:else}
-        <span class="
-            ml-2 px-[.3rem] py-[.05rem]
-            font-[500] uppercase leading-none
-          ">
-          {getFirstWord(title)}
-        </span>
-      {/if}
-      
-    </div>
-    <div class="
-        border-[#dee1e0] border border-l-0
-        py-[.2rem] px-[.4rem]
-        flex-auto
-        font-[700] {type === "part" ? "text-[#3a3c40]" : null}
-      ">
-      {title}
-    </div>
-    
-    <div class="
-        border-[#dee1e0] border border-l-0
-        py-[.2rem] px-[.4rem]
-        basis-24
-        {type === "part" ? "font-[700]" : null}
-        text-right
-      ">
-      {transformTimestamp(timing.estimated_duration)}
-    </div>
-    <div class="
-        border-[#dee1e0] border border-l-0
-        py-[.2rem] px-[.4rem]
-        basis-28
-        {type === "part" ? "font-[700] text-[#898989]" : null}
-        text-right
-      ">
-      {transformTimestamp(timing.front_time)}
-    </div>
-    <div class="
-        border-[#dee1e0] border border-l-0
-        py-[.2rem] px-[.4rem]
-        basis-28
-        {type === "part" ? "font-[700]" : null} text-[#898989]
-        text-right
-      ">
-      {transformTimestamp(timing.end_time)}
-    </div>
-    <div class="
-        border-[#dee1e0] border border-l-0 {type === "item" ? "rounded-r" : null}
-        py-[.2rem] px-[.4rem]
-        basis-28
-        {type === "part" ? "font-[700] text-[#898989]" : null}
-        text-right
-      ">
-      {transformTimestamp(timing.back_time)}
-    </div>
-    
-    <div class="
+  <div class="
       {type === "part" ? "border-[#dee1e0] border-y" : null}
-      basis-7
-    "></div>
+      py-[.2rem] px-[.4rem]
+      basis-20
+      text-center text-[#909094] text-[85%]
+    ">
+    {index}
+  </div>
+  <div class="
+      border-[#dee1e0] {type === "item" ? "border border-r-0 rounded-l" : "border-y"}
+      py-[.2rem] px-[.4rem] pl-0
+      basis-40
+      flex items-center
+    ">
+    
+    <button onclick={() => collapsed = !collapsed}>
+      <Icon 
+        icon={collapsed ? "material-symbols:arrow-right" : "material-symbols:arrow-drop-down"}
+        class="text-[#7a85a7] text-[125%]"
+      />
+    </button>
+    
+    {#if type === "item"}
+      <span class="
+          bg-[#7a85a7] text-white 
+          ml-2 px-[.3rem] py-[.05rem] rounded
+          font-[500] uppercase text-[85%]
+        ">
+        {getFirstWord(title)} {index}
+      </span>
+    {:else}
+      <span class="
+          ml-2 px-[.3rem] py-[.05rem]
+          font-[500] uppercase leading-none
+        ">
+        {getFirstWord(title)}
+      </span>
+    {/if}
+    
+  </div>
+  <div class="
+      border-[#dee1e0] border border-l-0
+      py-[.2rem] px-[.4rem]
+      flex-auto
+      font-[700] {type === "part" ? "text-[#3a3c40]" : null}
+    ">
+    {title}
+  </div>
+  
+  <div class="
+      border-[#dee1e0] border border-l-0
+      py-[.2rem] px-[.4rem]
+      basis-24
+      {type === "part" ? "font-[700]" : null}
+      text-right
+    ">
+    {transformTimestamp(timing.estimated_duration)}
+  </div>
+  <div class="
+      border-[#dee1e0] border border-l-0
+      py-[.2rem] px-[.4rem]
+      basis-28
+      {type === "part" ? "font-[700] text-[#898989]" : null}
+      text-right
+    ">
+    {transformTimestamp(timing.front_time)}
+  </div>
+  <div class="
+      border-[#dee1e0] border border-l-0
+      py-[.2rem] px-[.4rem]
+      basis-28
+      {type === "part" ? "font-[700]" : null} text-[#898989]
+      text-right
+    ">
+    {transformTimestamp(timing.end_time)}
+  </div>
+  <div class="
+      border-[#dee1e0] border border-l-0 {type === "item" ? "rounded-r" : null}
+      py-[.2rem] px-[.4rem]
+      basis-28
+      {type === "part" ? "font-[700] text-[#898989]" : null}
+      text-right
+    ">
+    {transformTimestamp(timing.back_time)}
+  </div>
+  
+  <div class="
+    {type === "part" ? "border-[#dee1e0] border-y" : null}
+    basis-7
+  "></div>
 </article>
 
 {#if !collapsed}

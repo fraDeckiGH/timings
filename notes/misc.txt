@@ -1,7 +1,9 @@
 
-task url: https://tinkerlist.notion.site/Timings-Svelte-bde10b4c9cae4ed496e6f6a1183126a2
-
-
+task urls 
+  url from my personal notion account (reccommended)
+  https://www.notion.so/Timings-Svelte-155137752e76803fbe3dc849b988a1f3
+  original url 
+  https://tinkerlist.notion.site/Timings-Svelte-bde10b4c9cae4ed496e6f6a1183126a2
 
 
 
